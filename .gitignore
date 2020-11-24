@@ -1,8 +1,10 @@
 config.json
+.ipynb_checkpoints
 
 */data
 */tmp
 */plots
+*/.ipynb_checkpoints
 
 VolCrush/cplex_results
 
