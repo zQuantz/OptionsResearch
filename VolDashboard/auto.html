@@ -1,0 +1,756 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+
+        <title>Volatility Monitor</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- Font -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+
+        <style type="text/css">
+
+            .jumbotron {
+                background-image: url(https://media.giphy.com/media/S8IIUwihhFu7O90I8l/giphy.gif);
+                background-size: 20rem;
+                background-repeat: no-repeat;
+                background-color: black;
+                background-position: right;
+            }
+            .jumbotronHeader {
+                font-family: 'Ubuntu', sans-serif;
+                color: white;
+                font-size: 5rem
+            }
+            .jumbotronLabel {
+                color:white;
+                font-size: 2rem;
+                font-family: 'Ubuntu', sans-serif;
+                padding-top: 1rem
+            }
+            .list-group-item.active {
+                background-color: black;
+                border-color: black;
+                color:white;
+            }
+            .statButton {
+                text-align: center;
+            }
+
+        </style>
+        <style type="text/css">
+    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ff9494;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ffcccc;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #e2e2ff;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #ffeeee;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ffa8a8;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffdcdc;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffe8e8;
+            color:  #000000;
+        }    #T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffbcbc;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffd0d0;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #fffafa;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #d0d0ff;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #ffc8c8;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ffeaea;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffe4e4;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #d4d4ff;
+            color:  #000000;
+        }    #T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffe8e8;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #d4d4ff;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #9696ff;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #0000ff;
+            color:  #f1f1f1;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #b4b4ff;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #fff8f8;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #fff6f6;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #e4e4ff;
+            color:  #000000;
+        }    #T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffc0c0;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #dadaff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #0000ff;
+            color:  #f1f1f1;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #c6c6ff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #c6c6ff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #f6f6ff;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }    #T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #eaeaff;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffd2d2;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #e6e6ff;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ceceff;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #9292ff;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #7070ff;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #5a5aff;
+            color:  #f1f1f1;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffd0d0;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff5656;
+            color:  #000000;
+        }    #T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff9090;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffbaba;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ececff;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #d4d4ff;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #8282ff;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #5858ff;
+            color:  #f1f1f1;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #bcbcff;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff6464;
+            color:  #000000;
+        }    #T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff9696;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffa0a0;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ff5a5a;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ff6666;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #6060ff;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #c6c6ff;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ff9c9c;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffe6e6;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffc2c2;
+            color:  #000000;
+        }    #T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffbcbc;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffb4b4;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ff9494;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ffdede;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #a6a6ff;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #fffafa;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ffb2b2;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffeeee;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff7676;
+            color:  #000000;
+        }    #T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffdede;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ff9494;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ffcccc;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #e2e2ff;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #ffeeee;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #babaff;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ff9494;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffcece;
+            color:  #000000;
+        }    #T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff5a5a;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffd0d0;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #fffafa;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #d0d0ff;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #ffc8c8;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #a2a2ff;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ff9898;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #fcfcff;
+            color:  #000000;
+        }    #T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff6464;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffe8e8;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #d4d4ff;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #9696ff;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #0000ff;
+            color:  #f1f1f1;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #b4b4ff;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #8484ff;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffb6b6;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #eaeaff;
+            color:  #000000;
+        }    #T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff5c5c;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #dadaff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #acacff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #0000ff;
+            color:  #f1f1f1;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #c6c6ff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #8686ff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #f8f8ff;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffd6d6;
+            color:  #000000;
+        }    #T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #e2e2ff;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffd2d2;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #e6e6ff;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ceceff;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #9292ff;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #7070ff;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #0c0cff;
+            color:  #f1f1f1;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffc4c4;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff5656;
+            color:  #000000;
+        }    #T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff5e5e;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffbaba;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ececff;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #d4d4ff;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #8282ff;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #5858ff;
+            color:  #f1f1f1;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #5252ff;
+            color:  #f1f1f1;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffc0c0;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff6464;
+            color:  #000000;
+        }    #T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ff5050;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffa0a0;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ff5a5a;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ff6666;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #6060ff;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #c6c6ff;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ff4c4c;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #ffecec;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ffc2c2;
+            color:  #000000;
+        }    #T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffc4c4;
+            color:  #000000;
+        }</style><style type="text/css">
+    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col1 {
+            background-color:  #ffb4b4;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col2 {
+            background-color:  #ff9494;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col3 {
+            background-color:  #ffdede;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col4 {
+            background-color:  #a6a6ff;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col5 {
+            background-color:  #fffafa;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col6 {
+            background-color:  #ff8888;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col7 {
+            background-color:  #fff2f2;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col10 {
+            background-color:  #ff7676;
+            color:  #000000;
+        }    #T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col11 {
+            background-color:  #ffe4e4;
+            color:  #000000;
+        }</style>
+
+        <div class="container-fluid" style="max-width: 50%; padding:0;">
+
+            <div class="jumbotron jumbotron-fluid" style="padding-left: 3rem; padding-right: 3rem">
+
+                <div class="container">
+
+                    <h1 class="jumbotronHeader">
+                        <b>O p t i Q s</b>
+                    </h1>
+                    <h6 class="jumbotronLabel">
+                        - Vol Monitor
+                    </h6>
+
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-right: 0; margin-left: 0; margin-bottom: 1rem; display: block; width: 30%;">
+
+                    <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                        <a class="list-group-item list-group-item-action statButton active" id="list-1ystats" data-toggle="list" href="#list-1y" role="tab" aria-controls="home">1 Yr Stats</a>
+                        <a class="list-group-item list-group-item-action statButton" id="list-3ystats" data-toggle="list" href="#list-3y" role="tab" aria-controls="profile">3 Yr Stats</a>
+                    </div>
+                    
+            </div>
+            
+            <div class="row" style="margin-right: 0rem; margin-left: 0;">
+            
+                <div class="col-12-xl col-12-lg col-12-md col-12-sm">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-1y" role="tabpanel" aria-labelledby="list-1ystats">
+                            <table class="table table-sm table-hover" id="T_73b8273e_2f25_11eb_8931_67ae640de5fa"><thead> <tr> <th class="col_heading level0 col0">Ticker</th> <th class="col_heading level0 col1">Implied Spread</th> <th class="col_heading level0 col2">RVol Spread</th> <th class="col_heading level0 col3">Carry</th> <th class="col_heading level0 col4">6M Corr.</th> <th class="col_heading level0 col5">3M Corr.</th> <th class="col_heading level0 col6">Mean</th> <th class="col_heading level0 col7">Z-Score</th> <th class="col_heading level0 col8">Min</th> <th class="col_heading level0 col9">Max</th> <th class="col_heading level0 col10">Rank</th> <th class="col_heading level0 col11">Pct. Rank</th> </tr></thead><tbody>
+<tr>
+<td class="data row0 col0" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col0">RVX VIX</td>
+<td class="data row0 col1" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col1">7.720</td>
+<td class="data row0 col2" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col2">7.124</td>
+<td class="data row0 col3" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col3">-0.596</td>
+<td class="data row0 col4" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col4">0.866</td>
+<td class="data row0 col5" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col5">0.936</td>
+<td class="data row0 col6" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col6">6.119</td>
+<td class="data row0 col7" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col7">0.401</td>
+<td class="data row0 col8" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col8">-2.920</td>
+<td class="data row0 col9" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col9">16.260</td>
+<td class="data row0 col10" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col10">0.555</td>
+<td class="data row0 col11" id="T_73b8273e_2f25_11eb_8931_67ae640de5farow0_col11">0.655</td>
+</tr>
+<tr>
+<td class="data row0 col0" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col0">VXD VIX</td>
+<td class="data row0 col1" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col1">0.580</td>
+<td class="data row0 col2" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col2">1.615</td>
+<td class="data row0 col3" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col3">1.035</td>
+<td class="data row0 col4" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col4">0.926</td>
+<td class="data row0 col5" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col5">0.966</td>
+<td class="data row0 col6" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col6">0.052</td>
+<td class="data row0 col7" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col7">0.199</td>
+<td class="data row0 col8" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col8">-18.880</td>
+<td class="data row0 col9" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col9">4.880</td>
+<td class="data row0 col10" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col10">0.819</td>
+<td class="data row0 col11" id="T_73bb7114_2f25_11eb_8931_67ae640de5farow0_col11">0.579</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col0">VXN VIX</td>
+<td class="data row0 col1" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col1">4.350</td>
+<td class="data row0 col2" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col2">7.775</td>
+<td class="data row0 col3" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col3">3.425</td>
+<td class="data row0 col4" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col4">0.667</td>
+<td class="data row0 col5" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col5">0.842</td>
+<td class="data row0 col6" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col6">3.368</td>
+<td class="data row0 col7" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col7">0.282</td>
+<td class="data row0 col8" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col8">-7.640</td>
+<td class="data row0 col9" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col9">10.990</td>
+<td class="data row0 col10" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col10">0.644</td>
+<td class="data row0 col11" id="T_73be3e08_2f25_11eb_8931_67ae640de5farow0_col11">0.655</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col0">VIX3M VIX</td>
+<td class="data row0 col1" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col1">3.200</td>
+<td class="data row0 col2" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col2">-0.835</td>
+<td class="data row0 col3" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col3">-4.035</td>
+<td class="data row0 col4" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col4">0.898</td>
+<td class="data row0 col5" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col5">0.839</td>
+<td class="data row0 col6" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col6">1.342</td>
+<td class="data row0 col7" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col7">0.475</td>
+<td class="data row0 col8" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col8">-18.230</td>
+<td class="data row0 col9" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col9">6.660</td>
+<td class="data row0 col10" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col10">0.861</td>
+<td class="data row0 col11" id="T_73c104e4_2f25_11eb_8931_67ae640de5farow0_col11">0.746</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col0">VIX6M VIX</td>
+<td class="data row0 col1" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col1">4.660</td>
+<td class="data row0 col2" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col2">-1.525</td>
+<td class="data row0 col3" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col3">-6.185</td>
+<td class="data row0 col4" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col4">0.790</td>
+<td class="data row0 col5" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col5">0.702</td>
+<td class="data row0 col6" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col6">1.122</td>
+<td class="data row0 col7" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col7">0.545</td>
+<td class="data row0 col8" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col8">-27.660</td>
+<td class="data row0 col9" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col9">8.400</td>
+<td class="data row0 col10" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col10">0.896</td>
+<td class="data row0 col11" id="T_73c3c0da_2f25_11eb_8931_67ae640de5farow0_col11">0.758</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col0">VXD VXN</td>
+<td class="data row0 col1" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col1">-3.770</td>
+<td class="data row0 col2" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col2">-6.160</td>
+<td class="data row0 col3" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col3">-2.390</td>
+<td class="data row0 col4" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col4">0.455</td>
+<td class="data row0 col5" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col5">0.823</td>
+<td class="data row0 col6" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col6">-3.316</td>
+<td class="data row0 col7" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col7">-0.107</td>
+<td class="data row0 col8" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col8">-16.270</td>
+<td class="data row0 col9" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col9">4.710</td>
+<td class="data row0 col10" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col10">0.596</td>
+<td class="data row0 col11" id="T_73c67dac_2f25_11eb_8931_67ae640de5farow0_col11">0.452</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col0">RVX VXN</td>
+<td class="data row0 col1" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col1">3.370</td>
+<td class="data row0 col2" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col2">-0.651</td>
+<td class="data row0 col3" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col3">-4.021</td>
+<td class="data row0 col4" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col4">0.340</td>
+<td class="data row0 col5" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col5">0.778</td>
+<td class="data row0 col6" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col6">2.751</td>
+<td class="data row0 col7" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col7">0.112</td>
+<td class="data row0 col8" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col8">-6.650</td>
+<td class="data row0 col9" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col9">16.190</td>
+<td class="data row0 col10" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col10">0.439</td>
+<td class="data row0 col11" id="T_73c95ed2_2f25_11eb_8931_67ae640de5farow0_col11">0.647</td>
+</tr><tr>
+<td class="data row0 col0" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col0">RVX VXD</td>
+<td class="data row0 col1" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col1">7.140</td>
+<td class="data row0 col2" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col2">5.510</td>
+<td class="data row0 col3" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col3">-1.630</td>
+<td class="data row0 col4" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col4">0.972</td>
+<td class="data row0 col5" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col5">0.959</td>
+<td class="data row0 col6" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col6">6.067</td>
+<td class="data row0 col7" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col7">0.318</td>
+<td class="data row0 col8" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col8">-0.930</td>
+<td class="data row0 col9" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col9">19.380</td>
+<td class="data row0 col10" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col10">0.397</td>
+<td class="data row0 col11" id="T_73cc3d0a_2f25_11eb_8931_67ae640de5farow0_col11">0.595</td>
+</tr></tbody></table>
+                        </div>
+                        <div class="tab-pane fade" id="list-3y" role="tabpanel" aria-labelledby="list-3ystats">
+                            <table class="table table-sm table-hover" id="T_8c20a418_2f25_11eb_8931_67ae640de5fa"><thead> <tr> <th class="col_heading level0 col0">Ticker</th> <th class="col_heading level0 col1">Implied Spread</th> <th class="col_heading level0 col2">RVol Spread</th> <th class="col_heading level0 col3">Carry</th> <th class="col_heading level0 col4">6M Corr.</th> <th class="col_heading level0 col5">3M Corr.</th> <th class="col_heading level0 col6">Mean</th> <th class="col_heading level0 col7">Z-Score</th> <th class="col_heading level0 col8">Min</th> <th class="col_heading level0 col9">Max</th> <th class="col_heading level0 col10">Rank</th> <th class="col_heading level0 col11">Pct. Rank</th> </tr></thead><tbody>
+<tr>
+<td class="data row0 col0" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col0">RVX VIX</td>
+<td class="data row0 col1" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col1">7.720</td>
+<td class="data row0 col2" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col2">7.124</td>
+<td class="data row0 col3" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col3">-0.596</td>
+<td class="data row0 col4" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col4">0.866</td>
+<td class="data row0 col5" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col5">0.936</td>
+<td class="data row0 col6" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col6">3.846</td>
+<td class="data row0 col7" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col7">1.244</td>
+<td class="data row0 col8" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col8">-6.020</td>
+<td class="data row0 col9" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col9">16.260</td>
+<td class="data row0 col10" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col10">0.617</td>
+<td class="data row0 col11" id="T_8c20a418_2f25_11eb_8931_67ae640de5farow0_col11">0.885</td>
+</tr>
+<tr>
+<td class="data row0 col0" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col0">VXD VIX</td>
+<td class="data row0 col1" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col1">0.580</td>
+<td class="data row0 col2" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col2">1.615</td>
+<td class="data row0 col3" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col3">1.035</td>
+<td class="data row0 col4" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col4">0.926</td>
+<td class="data row0 col5" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col5">0.966</td>
+<td class="data row0 col6" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col6">0.287</td>
+<td class="data row0 col7" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col7">0.163</td>
+<td class="data row0 col8" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col8">-18.880</td>
+<td class="data row0 col9" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col9">4.880</td>
+<td class="data row0 col10" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col10">0.819</td>
+<td class="data row0 col11" id="T_8c23dfa2_2f25_11eb_8931_67ae640de5farow0_col11">0.563</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col0">VXN VIX</td>
+<td class="data row0 col1" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col1">4.350</td>
+<td class="data row0 col2" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col2">7.775</td>
+<td class="data row0 col3" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col3">3.425</td>
+<td class="data row0 col4" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col4">0.667</td>
+<td class="data row0 col5" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col5">0.842</td>
+<td class="data row0 col6" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col6">3.816</td>
+<td class="data row0 col7" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col7">0.228</td>
+<td class="data row0 col8" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col8">-7.640</td>
+<td class="data row0 col9" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col9">10.990</td>
+<td class="data row0 col10" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col10">0.644</td>
+<td class="data row0 col11" id="T_8c26a732_2f25_11eb_8931_67ae640de5farow0_col11">0.638</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col0">VIX3M VIX</td>
+<td class="data row0 col1" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col1">3.200</td>
+<td class="data row0 col2" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col2">-0.835</td>
+<td class="data row0 col3" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col3">-4.035</td>
+<td class="data row0 col4" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col4">0.898</td>
+<td class="data row0 col5" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col5">0.839</td>
+<td class="data row0 col6" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col6">1.288</td>
+<td class="data row0 col7" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col7">0.744</td>
+<td class="data row0 col8" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col8">-18.230</td>
+<td class="data row0 col9" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col9">6.660</td>
+<td class="data row0 col10" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col10">0.861</td>
+<td class="data row0 col11" id="T_8c29582e_2f25_11eb_8931_67ae640de5farow0_col11">0.911</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col0">VIX6M VIX</td>
+<td class="data row0 col1" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col1">4.660</td>
+<td class="data row0 col2" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col2">-1.525</td>
+<td class="data row0 col3" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col3">-6.185</td>
+<td class="data row0 col4" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col4">0.790</td>
+<td class="data row0 col5" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col5">0.702</td>
+<td class="data row0 col6" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col6">1.791</td>
+<td class="data row0 col7" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col7">0.683</td>
+<td class="data row0 col8" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col8">-27.660</td>
+<td class="data row0 col9" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col9">8.400</td>
+<td class="data row0 col10" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col10">0.896</td>
+<td class="data row0 col11" id="T_8c2c0df8_2f25_11eb_8931_67ae640de5farow0_col11">0.878</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col0">VXD VXN</td>
+<td class="data row0 col1" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col1">-3.770</td>
+<td class="data row0 col2" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col2">-6.160</td>
+<td class="data row0 col3" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col3">-2.390</td>
+<td class="data row0 col4" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col4">0.455</td>
+<td class="data row0 col5" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col5">0.823</td>
+<td class="data row0 col6" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col6">-3.529</td>
+<td class="data row0 col7" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col7">-0.089</td>
+<td class="data row0 col8" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col8">-16.270</td>
+<td class="data row0 col9" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col9">4.710</td>
+<td class="data row0 col10" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col10">0.596</td>
+<td class="data row0 col11" id="T_8c2ecb38_2f25_11eb_8931_67ae640de5farow0_col11">0.431</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col0">RVX VXN</td>
+<td class="data row0 col1" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col1">3.370</td>
+<td class="data row0 col2" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col2">-0.651</td>
+<td class="data row0 col3" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col3">-4.021</td>
+<td class="data row0 col4" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col4">0.340</td>
+<td class="data row0 col5" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col5">0.778</td>
+<td class="data row0 col6" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col6">0.030</td>
+<td class="data row0 col7" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col7">0.845</td>
+<td class="data row0 col8" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col8">-7.120</td>
+<td class="data row0 col9" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col9">16.190</td>
+<td class="data row0 col10" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col10">0.450</td>
+<td class="data row0 col11" id="T_8c318a30_2f25_11eb_8931_67ae640de5farow0_col11">0.882</td>
+</tr><tr>
+<td class="data row0 col0" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col0">RVX VXD</td>
+<td class="data row0 col1" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col1">7.140</td>
+<td class="data row0 col2" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col2">5.510</td>
+<td class="data row0 col3" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col3">-1.630</td>
+<td class="data row0 col4" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col4">0.972</td>
+<td class="data row0 col5" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col5">0.959</td>
+<td class="data row0 col6" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col6">3.559</td>
+<td class="data row0 col7" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col7">1.213</td>
+<td class="data row0 col8" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col8">-4.760</td>
+<td class="data row0 col9" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col9">19.380</td>
+<td class="data row0 col10" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col10">0.493</td>
+<td class="data row0 col11" id="T_8c344f5e_2f25_11eb_8931_67ae640de5farow0_col11">0.864</td>
+</tr></tbody></table>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </body>
+    </html>
