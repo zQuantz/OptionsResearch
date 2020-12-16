@@ -8,6 +8,7 @@ import sys, os
 
 ###################################################################################################
 
+DIR = os.path.realpath(os.path.dirname(__file__))
 DATE = "2010-01-01"
 URL = "https://query1.finance.yahoo.com/v7/finance/download/{ticker}?period1={p1}&period2={p2}"
 URL += "&interval=1d&events=history&includeAdjustedClose=true"
@@ -348,7 +349,8 @@ if __name__ == '__main__':
 	p2 = datetime(dt.year, dt.month, dt.day)
 	p2 = int(p2.timestamp() / 1000) * 1000
 
-	products = pd.read_csv("data/vol_products.csv")
+	print("Downloading Data.")
+	products = pd.read_csv(f"{DIR}/data/vol_products.csv")
 	products = products.set_index("Ticker")["Link"].to_dict()
 
 	rv, rv3m, rv6m = rvol("RVOL"), rvol("RVOL3M"), rvol("RVOL6M")
@@ -382,6 +384,7 @@ if __name__ == '__main__':
 	vxd = vxd[vxd.date >= DATE].reset_index(drop=True)
 
 	## Spreads
+	print("Calculating Values.")
 	rvx_vix = spread_stats("RVX VIX", rvx, vix, rutrv, spxrv)
 	vxd_vix = spread_stats("VXD VIX", vxd, vix, djirv, spxrv)
 	vxn_vix = spread_stats("VXN VIX", vxn, vix, ndxrv, spxrv)
@@ -424,6 +427,7 @@ if __name__ == '__main__':
 	vxd.columns = VIFCOLS
 
 	## HTML
+	print("Building HTML.")
 	items = [
 		style_spread(filter_cols(rvx_vix.copy(), SCOLS, FCOLS)).hide_index().render(),
 		style_spread(filter_cols(vxd_vix.copy(), SCOLS, FCOLS)).hide_index().render(),
@@ -497,6 +501,7 @@ if __name__ == '__main__':
 		list(map(str, html_vindex.find_all("style")))
 	)
 
+	print("Formatting Page.")
 	PAGE = PAGE.replace("EQUITY_INDEX_TABLE_HERE", str(index_table))
 	PAGE = PAGE.replace("VOL_INDEX_TABLE_HERE", str(vindex_table))
 	PAGE = PAGE.replace("LONG_TABLE_HERE", str(long_table))
