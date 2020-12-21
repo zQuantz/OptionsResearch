@@ -1,4 +1,4 @@
-from scipy.optimize import newton, brent
+from scipy.optimize import newton, brentq
 from scipy.stats import norm
 from tqdm import tqdm
 import pandas as pd
@@ -7,14 +7,17 @@ import numpy as np
 import sys, os
 
 options = pd.read_csv("data/options.csv")
+print(options.head())
 rates = pd.read_csv("data/cubic_ratemap.csv")
+print(rates.head())
 
 moneyness = abs(options.stock_price / options.strike_price - 1)
 options = options[moneyness <= 0.35]
 options = options[options.bid_price != 0]
 options = options[options.ask_price != 0]
-options = options.merge(rates, on=['date_current', 'days_to_expiry'], how="inner")
+options = options.merge(rates, on=['date_current', 'tdays_to_expiry'], how="inner")
 options = options.reset_index(drop=True)
+print(options.head())
 
 Ss = options.stock_price.values
 Ks = options.strike_price.values
@@ -46,29 +49,37 @@ def root(v, *args):
 
 if __name__ == '__main__':
     
+    brent_ivs = []
+    for i, (S, K, T, r, q, t, M) in enumerate(zip(Ss, Ks, Ts, rs, qs, ts, Ms)):
+        
+        if i % 10000 == 0:
+            print(i / len(Ss) * 100)
+        
+        try:
+            iv = brentq(root, 0, 100, args=(S, K, T, r, q, t, M))
+        except Exception as e:
+            iv = 0
+        brent_ivs.append(iv)
+        
+    brent_ivs = np.array(brent_ivs)
+    print("Non-zero", brent_ivs[brent_ivs > 0].shape[0])
+    print("Zero", brent_ivs[brent_ivs == 0].shape[0])
+    
     newton_ivs = []
-    for S, K, T, r, q, t, M in tqdm(zip(Ss, Ks, Ts, rs, qs, ts, Ms)):
+    for i, (S, K, T, r, q, t, M) in enumerate(zip(Ss, Ks, Ts, rs, qs, ts, Ms)):
+        
+        if i % 10000 == 0:
+            print(i / len(Ss) * 100)
+            
         try:
             iv = newton(root, 0.5, fprime=vega, args=(S, K, T, r, q, t, M))
-        except:
+        except Exception as e:
             iv = 0
         newton_ivs.append(iv)
         
     newton_ivs = np.array(newton_ivs)
     print("Non-zero", newton_ivs[newton_ivs > 0].shape[0])
     print("Zero", newton_ivs[newton_ivs == 0].shape[0])
-    
-    brent_ivs = []
-    for S, K, T, r, q, t, M in tqdm(zip(Ss, Ks, Ts, rs, qs, ts, Ms)):
-        try:
-            iv = brent(bs_price, args=(S, K, T, r, q, t, M))
-        except:
-            iv = 0
-        newton_ivs.append(iv)
-        
-    brent_ivs = np.array(brent_ivs)
-    print("Non-zero", brent_ivs[brent_ivs > 0].shape[0])
-    print("Zero", brent_ivs[brent_ivs == 0].shape[0])
     
     options['bivs'] = brent_ivs
     options['nivs'] = newton_ivs
